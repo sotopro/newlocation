@@ -1,3 +1,4 @@
+import Place from "../../models/places";
 import { PLACES } from "../types/index";
 
 const { ADD_PLACE } = PLACES;
@@ -7,5 +8,14 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-    return state
+    switch (action.type) {
+        case ADD_PLACE:
+            const newPlace = new Place(Date.now(), action.place.name);
+            return {
+                ...state,
+                places: state.places.concat(newPlace),
+            }
+        default:
+            return state;
+    }
 };
