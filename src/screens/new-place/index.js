@@ -9,14 +9,15 @@ import ImageSelector from '../../components/molecules/image-selector';
 const NewPlace = ({navigation}) => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
+  const [image, setImage] = useState('');
 
   const handleNameChange = text => setName(text);
   const handleSavePlace = () => {
-    dispatch(placeActions.addPlace(name));
+    dispatch(placeActions.addPlace(name, image));
     navigation.navigate('Place');
   };
   const handleOnImage = uri => {
-    console.warn(uri);
+    setImage(uri);
   };
   return (
     <ScrollView>

@@ -1,32 +1,32 @@
-import React from "react";
-import { FlatList } from "react-native";
-import { styles } from "./styles";
-import { useSelector } from "react-redux";
-import PlaceItem from "../../components/molecules/place-item";
+import React from 'react';
+import {FlatList} from 'react-native';
+import {styles} from './styles';
+import {useSelector} from 'react-redux';
+import PlaceItem from '../../components/molecules/place-item';
 
-const PlaceList = ({ navigation }) => {
-    const places = useSelector(state => state.places.places);
+const PlaceList = ({navigation}) => {
+  const places = useSelector(state => state.places.places);
+  console.log('PlaceList', {places});
+  const onSelectDetail = () => {
+    navigation.navigate('PlaceDetail');
+  };
 
+  const renderItem = ({item}) => (
+    <PlaceItem
+      name={item.name}
+      address="123 street, city, country"
+      onSelect={() => onSelectDetail()}
+      image={item.image}
+    />
+  );
 
-    const onSelectDetail = () => {
-        navigation.navigate('PlaceDetail');
-    }
-
-    const renderItem = ({ item }) => (
-        <PlaceItem
-            name={item.name}
-            address='123 street, city, country'
-            onSelect={() => onSelectDetail()}
-            />
-    )
-
-    return (
-        <FlatList
-            data={places}
-            keyExtractor={item => item.id}
-            renderItem={renderItem}
-        />
-    )
-}
+  return (
+    <FlatList
+      data={places}
+      keyExtractor={item => item.id}
+      renderItem={renderItem}
+    />
+  );
+};
 
 export default PlaceList;
