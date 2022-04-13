@@ -4,7 +4,6 @@ import {COLORS} from '../../../constants';
 import {styles} from './styles';
 
 const PlaceItem = ({name, address, onSelect, image}) => {
-  console.warn({image});
   return (
     <TouchableOpacity onPress={() => onSelect()} style={styles.container}>
       <Image source={{uri: image}} style={styles.image} />

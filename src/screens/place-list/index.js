@@ -6,7 +6,6 @@ import PlaceItem from '../../components/molecules/place-item';
 
 const PlaceList = ({navigation}) => {
   const places = useSelector(state => state.places.places);
-  console.log('PlaceList', {places});
   const onSelectDetail = () => {
     navigation.navigate('PlaceDetail');
   };
