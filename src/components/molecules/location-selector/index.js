@@ -1,13 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Alert, Button} from 'react-native';
 import colors from '../../../constants/colors';
 import Geolocation from '@react-native-community/geolocation';
-import {PERMISSIONS, request, RESULTS} from 'react-native-permissions';
+import MapsPreview from '../map-preview/index';
+import {useRoute} from '@react-navigation/native';
 
 import {styles} from './styles';
 
-const LocationSelector = ({onLocation}) => {
+const LocationSelector = ({onLocation, onMapLocation}) => {
   const [pickedLocation, setPickedLocation] = useState(null);
+
+  const route = useRoute();
+  const mapLocation = route.params?.location;
+
+  useEffect(() => {
+    if (mapLocation) {
+      setPickedLocation(mapLocation);
+      onLocation(mapLocation);
+    }
+  }, [mapLocation]);
+
   const getLocation = () => {
     Geolocation.getCurrentPosition(
       position => {
@@ -35,22 +47,29 @@ const LocationSelector = ({onLocation}) => {
       },
     );
   };
+
+  const pickLocation = () => {
+    onMapLocation();
+  };
   return (
     <View style={styles.container}>
       <View style={styles.preview}>
-        {pickedLocation ? (
-          <Text>
-            {pickedLocation.latitude}, {pickedLocation.longitude}
-          </Text>
-        ) : (
-          <Text> No location picked yet</Text>
-        )}
+        <MapsPreview location={pickedLocation} style={styles.preview}>
+          <Text>No location chosen yet!</Text>
+        </MapsPreview>
       </View>
-      <Button
-        title="Pick Location"
-        color={colors.primaryColor}
-        onPress={() => getLocation()}
-      />
+      <View style={styles.action}>
+        <Button
+          title="Get Location"
+          color={colors.primaryColor}
+          onPress={() => getLocation()}
+        />
+        <Button
+          title="Pick Location in Maps"
+          color={colors.primaryColor}
+          onPress={() => pickLocation()}
+        />
+      </View>
     </View>
   );
 };

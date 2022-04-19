@@ -14,4 +14,8 @@ export const styles = StyleSheet.create({
     borderColor: colors.primaryColor,
     borderWidth: 1,
   },
+  action: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 });

@@ -34,12 +34,21 @@ const NewPlace = ({navigation}) => {
   const handleOnLocation = location => {
     setLocation(location);
   };
+
+  const handleOnMapLocation = () => {
+    navigation.navigate('Map', {
+      location,
+    });
+  };
   return (
     <ScrollView>
       <View style={styles.container}>
         <Text style={styles.label}>Name</Text>
         <ImageSelector onImage={handleOnImage} />
-        <LocationSelector onLocation={handleOnLocation} />
+        <LocationSelector
+          onLocation={handleOnLocation}
+          onMapLocation={handleOnMapLocation}
+        />
         <TextInput
           style={styles.input}
           onChangeText={handleNameChange}
