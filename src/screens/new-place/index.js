@@ -16,15 +16,7 @@ const NewPlace = ({navigation}) => {
   const handleNameChange = text => setName(text);
   const handleSavePlace = () => {
     const {latitude, longitude} = location;
-    dispatch(
-      placeActions.addPlace(
-        name,
-        image,
-        '123 street, city, country',
-        latitude,
-        longitude,
-      ),
-    );
+    dispatch(placeActions.addPlace(name, image, latitude, longitude));
     navigation.navigate('Place');
   };
   const handleOnImage = uri => {
